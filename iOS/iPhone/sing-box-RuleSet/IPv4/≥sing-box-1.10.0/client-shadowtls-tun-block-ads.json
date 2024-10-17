@@ -1,18 +1,35 @@
 {
   "inbounds": [
     {
+      "type": "tun",
+      "tag": "tun-in",
+      "address": [
+        "172.19.0.1/30"
+      ],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed",
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 8090
+        }
+      }
+    },
+    {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "::1",
-      "listen_port": 10010,
-      "set_system_proxy": true
+      "listen": "127.0.0.1",
+      "listen_port": 8090
     }
   ],
   "outbounds": [
     {
       "type": "shadowsocks",
       "detour": "shadowtls-out",
-      "server": "::1",
+      "server": "127.0.0.1",
       "server_port": 8080,
       "method": "2022-blake3-aes-128-gcm",
       "password": "//your shadowsocks password",
@@ -89,7 +106,6 @@
         "download_detour": ""
       }
     ],
-    "final": "",
-    "auto_detect_interface": true
+    "final": ""
   }
 }

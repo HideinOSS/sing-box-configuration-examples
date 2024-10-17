@@ -89,6 +89,7 @@
         "download_detour": ""
       }
     ],
-    "final": ""
+    "final": "",
+    "auto_detect_interface": true
   }
 }

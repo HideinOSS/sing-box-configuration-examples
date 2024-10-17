@@ -3,11 +3,12 @@
     "enabled": true,
     "server": "pool.ntp.org",
     "server_port": 123,
-    "interval": "30m"
+    "interval": "60m"
   },
   "inbounds": [
     {
       "type": "shadowtls",
+      "tag": "shadowtls-in",
       "listen": "::",
       "listen_port": 443,
       "detour": "shadowsocks-in",
@@ -26,10 +27,10 @@
     {
       "type": "shadowsocks",
       "tag": "shadowsocks-in",
-      "listen": "127.0.0.1",
+      "listen": "::1",
       "listen_port": 8080,
       "method": "2022-blake3-aes-128-gcm",
-      "password": "//shell 运行 "sing-box generate rand --base64 16" 生成",
+      "password": "//shell 运行 sing-box generate rand --base64 16 生成",
       "multiplex": {
         "enabled": true,
         "padding": true
@@ -38,7 +39,8 @@
   ],
   "outbounds": [
     {
-      "type": "direct"
+      "type": "direct",
+      "tag": "direct-out"
     }
   ]
 }
