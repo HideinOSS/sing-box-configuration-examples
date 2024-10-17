@@ -1,0 +1,46 @@
+{
+  "ntp": {
+    "enabled": true,
+    "server": "pool.ntp.org",
+    "server_port": 123,
+    "interval": "60m"
+  },
+  "inbounds": [
+    {
+      "type": "shadowtls",
+      "tag": "shadowtls-in",
+      "listen": "::",
+      "listen_port": 443,
+      "detour": "shadowsocks-in",
+      "version": 3,
+      "users": [
+        {
+          "password": "//your shadowtls password"
+        }
+      ],
+      "handshake": {
+        "server": "publicassets.cdn-apple.com",
+        "server_port": 443
+      },
+      "strict_mode": true
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "shadowsocks-in",
+      "listen": "127.0.0.1",
+      "listen_port": 8080,
+      "method": "2022-blake3-aes-128-gcm",
+      "password": "//shell 运行 sing-box generate rand --base64 16 生成",
+      "multiplex": {
+        "enabled": true,
+        "padding": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct-out"
+    }
+  ]
+}

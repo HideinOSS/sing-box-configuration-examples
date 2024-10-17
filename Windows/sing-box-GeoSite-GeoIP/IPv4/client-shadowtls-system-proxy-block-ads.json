@@ -3,7 +3,7 @@
     {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "::",
+      "listen": "127.0.0.1",
       "listen_port": 10010,
       "set_system_proxy": true
     }
@@ -50,45 +50,32 @@
   "route": {
     "rules": [
       {
-        "rule_set": "geosite-category-ads-all",
+        "geosite": "category-ads-all",
         "outbound": "block"
       },
       {
-        "rule_set": "geosite-cn",
+        "geosite": "cn",
         "outbound": "direct"
       },
       {
-        "rule_set": "geoip-cn",
+        "geoip": "cn",
         "outbound": "direct"
       },
       {
-        "ip_is_private": true,
+        "geoip": "private",
         "outbound": "direct"
       }
     ],
-    "rule_set": [
-      {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
-        "download_detour": ""
-      },
-      {
-        "tag": "geosite-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
-        "download_detour": ""
-      },
-      {
-        "tag": "geoip-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
-        "download_detour": ""
-      }
-    ],
+    "geosite": {
+      "path": "geosite.db",
+      "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
+      "download_detour": ""
+    },
+    "geoip":  {
+      "path": "geoip.db",
+      "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
+      "download_detour": ""
+    },
     "final": ""
   }
 }
