@@ -3,8 +3,8 @@
 
 ## 目录解释
 
-* sing-box-GeoSite-GeoIP：指旧版本sing-box（小于等于1.7.8版本）使用Geosite、GeoIP进行国内外、私有地址分流，sing-box 小于等于1.7.8的版本可以使用，已在sing-box 1.8.0及以后的版本废弃。
-* sing-box-ruleset：指从sing-box 1.8.0版本后使用规则集方式分流，更加小巧灵活。
+* sing-box-GeoIP-Geosite：指旧版本sing-box（小于等于1.7.8版本）使用GeoIP、Geosite进行国内外、私有地址分流，sing-box 小于等于1.7.8的版本可以使用，已在sing-box 1.8.0及以后的版本废弃。
+* sing-box-RuleSet：指从sing-box 1.8.0版本后使用规则集方式分流，更加小巧灵活。
 * IPv4：服务端和客户端使用IPv4地址进行配置。
 * IPv6：服务端和客户端使用IPv6地址进行配置。
 
