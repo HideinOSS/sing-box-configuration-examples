@@ -16,3 +16,8 @@
 * 配置文件和官方文档相比，不存在的字段表示为空或使用内置默认值。
 * 配置文件中留空的字段表示使用内置默认值，你可以完全理解官方文档后进行修改。
 * 官方文档地址：https://sing-box.sagernet.org/zh/configuration 。
+
+## 兼容性提示
+
+* 根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃。强烈建议先停留在sing-box 1.9.3版本，旧版本在这里可以下载到：https://github.com/SagerNet/sing-box/releases/tag/v1.9.3 或 https://apkpure.com/sing-box/io.nekohasekai.sfa/download/1.9.3 ，下载后记得在线扫描病毒：https://www.virustotal.com/gui/home/upload 。
+  
