@@ -19,5 +19,13 @@
 
 ## 兼容性提示
 
-* 根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃。强烈建议先停留在sing-box 1.9.3版本，旧版本在这里可以下载到：https://github.com/SagerNet/sing-box/releases/tag/v1.9.3 或 https://apkpure.com/sing-box/io.nekohasekai.sfa/download/1.9.3 ，下载后记得在线扫描病毒：https://www.virustotal.com/gui/home/upload 。
+* 调查后sing-box需要定位权限，国产系统限制了定位权限，AOSP没此问题。 ~~根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃。强烈建议先停留在sing-box 1.9.3版本，旧版本在这里可以下载到：https://github.com/SagerNet/sing-box/releases/tag/v1.9.3 或 https://apkpure.com/sing-box/io.nekohasekai.sfa/download/1.9.3 ，下载后记得在线扫描病毒：https://www.virustotal.com/gui/home/upload 。~~
   
+## 在Windows上运行
+
+* Windows最小化运行，新建bat文件，名为*Run-sing-box.bat* ， 解压sing-box-x.x.x-windows-amd64.zip，*sing-box-x.x.x-windows-amd64在 D:\Program Files目录中* ，配置文件config.json和sing-box.exe程序在同一目录。
+* ```bat
+  cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
+  start /min sing-box.exe run
+  ```
+* 保存后双击*Run-sing-box.bat*运行。
