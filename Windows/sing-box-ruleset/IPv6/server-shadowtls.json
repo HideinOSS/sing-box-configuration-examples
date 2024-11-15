@@ -40,7 +40,8 @@
   "outbounds": [
     {
       "type": "direct",
-      "tag": "direct-out"
+      "tag": "direct-out",
+      "domain_strategy": "prefer_ipv6"
     }
   ]
 }
