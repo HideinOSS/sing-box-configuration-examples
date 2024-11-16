@@ -28,10 +28,10 @@
 
 * Windows最小化运行，新建bat文件，名为*Run-sing-box.bat* ，
 * 解压sing-box-x.x.x-windows-amd64.zip，
-* 假设sing-box-x.x.x-windows-amd64在 D:\Program Files目录中，
+* 假设sing-box-x.x.x-windows-amd64在 D:\Program Files 目录中，
 * 配置文件config.json和sing-box.exe程序在同一目录，
 * 可以用"-c"参数指定其他地方的配置文件，
-* ```bat
+ ```bat
   cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
   start /min sing-box.exe run
   ```
