@@ -76,7 +76,7 @@
       "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
       "download_detour": ""
     },
-    "final": "",
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "final": ""
   }
 }
