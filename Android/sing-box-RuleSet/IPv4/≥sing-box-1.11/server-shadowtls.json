@@ -19,7 +19,7 @@
         }
       ],
       "handshake": {
-        "server": "publicassets.cdn-apple.com",
+        "server": "sns-video-hw.xhscdn.com",
         "server_port": 443
       },
       "strict_mode": true
@@ -27,7 +27,7 @@
     {
       "type": "shadowsocks",
       "tag": "shadowsocks-in",
-      "listen": "::1",
+      "listen": "127.0.0.1",
       "listen_port": 8080,
       "method": "2022-blake3-aes-128-gcm",
       "password": "//shell 运行 sing-box generate rand --base64 16 生成",
@@ -40,8 +40,7 @@
   "outbounds": [
     {
       "type": "direct",
-      "tag": "direct-out",
-      "domain_strategy": "prefer_ipv6"
+      "tag": "direct"
     }
   ]
 }

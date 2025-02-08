@@ -31,7 +31,7 @@
       "password": "//your shadowtls password",
       "tls": {
         "enabled": true,
-        "server_name": "publicassets.cdn-apple.com",
+        "server_name": "sns-video-hw.xhscdn.com",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"
@@ -41,28 +41,29 @@
     {
       "type": "direct",
       "tag": "direct"
-    },
-    {
-      "type": "block",
-      "tag": "block"
     }
   ],
   "route": {
     "rules": [
       {
         "rule_set": "geosite-category-ads-all",
-        "outbound": "block"
+        "action": "reject",
+        "method": "default",
+        "no_drop": false
       },
       {
         "rule_set": "geosite-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "rule_set": "geoip-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "ip_is_private": true,
+        "action": "route",
         "outbound": "direct"
       }
     ],

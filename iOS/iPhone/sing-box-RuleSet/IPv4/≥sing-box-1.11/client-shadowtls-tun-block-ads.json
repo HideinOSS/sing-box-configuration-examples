@@ -3,7 +3,9 @@
     {
       "type": "tun",
       "tag": "tun-in",
-      "inet4_address": "172.19.0.1/30",
+      "address": [
+        "172.19.0.1/30"
+      ],
       "mtu": 9000,
       "auto_route": true,
       "strict_route": true,
@@ -56,28 +58,29 @@
     {
       "type": "direct",
       "tag": "direct"
-    },
-    {
-      "type": "block",
-      "tag": "block"
     }
   ],
   "route": {
     "rules": [
       {
         "rule_set": "geosite-category-ads-all",
-        "outbound": "block"
+        "action": "reject",
+        "method": "default",
+        "no_drop": false
       },
       {
         "rule_set": "geosite-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "rule_set": "geoip-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "ip_is_private": true,
+        "action": "route",
         "outbound": "direct"
       }
     ],

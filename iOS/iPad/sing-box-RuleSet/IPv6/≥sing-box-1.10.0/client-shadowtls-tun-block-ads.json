@@ -49,7 +49,7 @@
       "password": "//your shadowtls password",
       "tls": {
         "enabled": true,
-        "server_name": "publicassets.cdn-apple.com",
+        "server_name": "sns-video-hw.xhscdn.com",
         "utls": {
           "enabled": true,
           "fingerprint": "chrome"

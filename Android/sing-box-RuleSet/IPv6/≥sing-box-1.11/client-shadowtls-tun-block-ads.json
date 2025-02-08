@@ -3,7 +3,10 @@
     {
       "type": "tun",
       "tag": "tun-in",
-      "inet4_address": "172.19.0.1/30",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
       "mtu": 9000,
       "auto_route": true,
       "strict_route": true,
@@ -11,7 +14,7 @@
       "platform": {
         "http_proxy": {
           "enabled": true,
-          "server": "127.0.0.1",
+          "server": "::1",
           "server_port": 8090
         }
       }
@@ -19,7 +22,7 @@
     {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "127.0.0.1",
+      "listen": "::1",
       "listen_port": 8090
     }
   ],
@@ -27,7 +30,7 @@
     {
       "type": "shadowsocks",
       "detour": "shadowtls-out",
-      "server": "127.0.0.1",
+      "server": "::1",
       "server_port": 8080,
       "method": "2022-blake3-aes-128-gcm",
       "password": "//your shadowsocks password",
@@ -56,28 +59,29 @@
     {
       "type": "direct",
       "tag": "direct"
-    },
-    {
-      "type": "block",
-      "tag": "block"
     }
   ],
   "route": {
     "rules": [
       {
         "rule_set": "geosite-category-ads-all",
-        "outbound": "block"
+        "action": "reject",
+        "method": "default",
+        "no_drop": false
       },
       {
         "rule_set": "geosite-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "rule_set": "geoip-cn",
+        "action": "route",
         "outbound": "direct"
       },
       {
         "ip_is_private": true,
+        "action": "route",
         "outbound": "direct"
       }
     ],
@@ -104,6 +108,7 @@
         "download_detour": ""
       }
     ],
+    "auto_detect_interface": true,
     "final": ""
   }
 }
