@@ -4,38 +4,38 @@
 ## 升级版本时先移除sing-box
 因升级安装sing-box会重置 /usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件
 
-```
+```bash
 systemctl stop sing-box.service && apt-get remove -y sing-box
 ```
 
 ## 下载sing-box
-```
+```bash
 wget https://github.com/SagerNet/sing-box/releases/download/v1.10.7/sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## md5sum sing-box
-```
+```bash
 md5sum sing-box_1.10.7_linux_amd64.deb 
 c84e04c0028e17dd26eba630ab2e27d1  sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## 安装sing-box
-```
+```bash
 dpkg -i sing-box_1.10.7_linux_amd64.deb && dpkg -c sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## 检查sing-box版本
-```
+```bash
 sing-box version
 ```
 
 ## 出于安全考虑，增加sing-box用户、用户组
 以sing-box用户身份运行sing-box
-```
+```bash
 groupadd --system sing-box
 ```
 
-```
+```bash
 useradd --system \
     --gid sing-box \
     --create-home \
@@ -46,7 +46,7 @@ useradd --system \
 ```
 
 ## 创建用sing-box用户运行的sing-box.service
-```
+```bash
 cat << EOF > /usr/lib/systemd/system/sing-box.service
 [Unit]
 Description=sing-box service
@@ -70,7 +70,7 @@ EOF
 ```
 
 ## 创建用sing-box用户运行的sing-box@.service
-```
+```bash
 cat << EOF > /usr/lib/systemd/system/sing-box@.service
 [Unit]
 Description=sing-box service
@@ -94,8 +94,8 @@ EOF
 ```
 
 ## 创建sing-box IPv4配置文件
-执行前记得修改"//"里面的字符串，并替换成你自己的配置
-```
+执行前记得修改"//"里面的字符串，替换成你自己的配置
+```bash
 cat << EOF > /etc/sing-box/config.json
 {
   "ntp": {
@@ -147,8 +147,8 @@ EOF
 ```
 
 ## 创建sing-box IPv6配置文件
-执行前记得修改"//"里面的字符串，并替换成你自己的配置
-```
+执行前记得修改"//"里面的字符串，替换成你自己的配置
+```bash
 cat << EOF > /etc/sing-box/config.json
 {
   "ntp": {
@@ -201,6 +201,6 @@ EOF
 ```
 
 ## 开机自启动sing-box，立即启动sing-box服务，并检查sing-box服务状态
-```
+```bash
 systemctl enable sing-box && systemctl daemon-reload && systemctl start sing-box.service && systemctl status sing-box.service
 ```
