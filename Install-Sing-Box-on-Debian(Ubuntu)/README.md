@@ -1,7 +1,8 @@
 在Debian(Ubuntu)上安装Sing-Box服务端
 ==================================
 
-## 升级版本时先移除sing-box，升级安装sing-box会重置 /usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件
+## 升级版本时先移除sing-box
+因升级安装sing-box会重置 /usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件
 
 ```
 systemctl stop sing-box.service && apt-get remove -y sing-box
@@ -28,7 +29,8 @@ dpkg -i sing-box_1.10.7_linux_amd64.deb && dpkg -c sing-box_1.10.7_linux_amd64.d
 sing-box version
 ```
 
-## 出于安全考虑，增加sing-box用户、用户组，以sing-box用户身份运行sing-box
+## 出于安全考虑，增加sing-box用户、用户组
+以sing-box用户身份运行sing-box
 ```
 groupadd --system sing-box
 ```
@@ -91,7 +93,8 @@ WantedBy=multi-user.target
 EOF
 ```
 
-## 创建sing-box IPv4配置文件，默认位置/etc/sing-box/config.json ，执行前记得修改"//"后的字符串替换成你自己的密码
+## 创建sing-box IPv4配置文件
+执行前记得修改"//"里面的字符串，并替换成你自己的配置
 ```
 cat << EOF > /etc/sing-box/config.json
 {
@@ -143,7 +146,8 @@ cat << EOF > /etc/sing-box/config.json
 EOF
 ```
 
-## 创建sing-box IPv6配置文件，默认位置/etc/sing-box/config.json ，执行前记得修改"//"后的字符串替换成你自己的密码
+## 创建sing-box IPv6配置文件
+执行前记得修改"//"里面的字符串，并替换成你自己的配置
 ```
 cat << EOF > /etc/sing-box/config.json
 {
