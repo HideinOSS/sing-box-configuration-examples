@@ -2,7 +2,9 @@
 ==================================
 
 ## 升级版本时先移除sing-box
-因升级安装sing-box会重置 /usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件
+仅供已安装后升级版本使用，因升级安装sing-box会重置
+/usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件，
+升级版本建议重新安装
 
 ```bash
 systemctl stop sing-box.service && apt-get remove -y sing-box
@@ -13,7 +15,7 @@ systemctl stop sing-box.service && apt-get remove -y sing-box
 wget https://github.com/SagerNet/sing-box/releases/download/v1.10.7/sing-box_1.10.7_linux_amd64.deb
 ```
 
-## md5sum sing-box
+## 生成sing-box md5
 ```bash
 md5sum sing-box_1.10.7_linux_amd64.deb 
 c84e04c0028e17dd26eba630ab2e27d1  sing-box_1.10.7_linux_amd64.deb
@@ -45,7 +47,7 @@ useradd --system \
     sing-box
 ```
 
-## 创建用sing-box用户运行的sing-box.service
+## 创建由sing-box用户运行的sing-box.service
 ```bash
 cat << EOF > /usr/lib/systemd/system/sing-box.service
 [Unit]
@@ -69,7 +71,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-## 创建用sing-box用户运行的sing-box@.service
+## 创建由sing-box用户运行的sing-box@.service
 ```bash
 cat << EOF > /usr/lib/systemd/system/sing-box@.service
 [Unit]
@@ -94,7 +96,8 @@ EOF
 ```
 
 ## 创建sing-box IPv4配置文件
-执行前记得修改"//"里面的字符串，替换成你自己的配置
+如果你的服务器只支持IPv4，用此配置，
+执行前先修改"//"里面的值，替换成你自己的配置
 ```bash
 cat << EOF > /etc/sing-box/config.json
 {
@@ -147,7 +150,8 @@ EOF
 ```
 
 ## 创建sing-box IPv6配置文件
-执行前记得修改"//"里面的字符串，替换成你自己的配置
+如果你的服务器支持IPv6，用此配置，
+执行前先修改"//"里面的值，替换成你自己的配置
 ```bash
 cat << EOF > /etc/sing-box/config.json
 {
