@@ -2,8 +2,8 @@
 ==================================
 
 ## 升级版本时先移除sing-box
-仅供已安装后升级版本使用，因升级安装sing-box会重置
-/usr/lib/systemd/system/sing-box.service 、 /usr/lib/systemd/system/sing-box@.service 文件，
+仅供已安装后升级版本使用，升级安装sing-box会重置
+`/usr/lib/systemd/system/sing-box.service` 、 `/usr/lib/systemd/system/sing-box@.service`文件，
 升级版本建议重新安装
 
 ```bash
@@ -11,28 +11,32 @@ systemctl stop sing-box.service && apt-get remove -y sing-box
 ```
 
 ## 下载sing-box
+以sing-box 1.10.7版本为例：
 ```bash
 wget https://github.com/SagerNet/sing-box/releases/download/v1.10.7/sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## 生成sing-box md5
+以sing-box 1.10.7版本为例：
 ```bash
 md5sum sing-box_1.10.7_linux_amd64.deb 
 c84e04c0028e17dd26eba630ab2e27d1  sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## 安装sing-box
+以sing-box 1.10.7版本为例：
 ```bash
 dpkg -i sing-box_1.10.7_linux_amd64.deb && dpkg -c sing-box_1.10.7_linux_amd64.deb
 ```
 
 ## 检查sing-box版本
+以sing-box 1.10.7版本为例：
 ```bash
 sing-box version
 ```
 
-## 出于安全考虑，增加sing-box用户、用户组
-以sing-box用户身份运行sing-box
+## 增加sing-box用户、用户组
+出于安全考虑，以sing-box用户身份运行sing-box
 ```bash
 groupadd --system sing-box
 ```
@@ -48,6 +52,31 @@ useradd --system \
 ```
 
 ## 创建由sing-box用户运行的sing-box.service
+`sing-box 1.12.x`版本:
+```bash
+cat << EOF > /usr/lib/systemd/system/sing-box.service
+[Unit]
+Description=sing-box service
+Documentation=https://sing-box.sagernet.org
+After=network.target nss-lookup.target network-online.target
+
+[Service]
+User=sing-box
+Group=sing-box
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_PTRACE CAP_DAC_READ_SEARCH
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_PTRACE CAP_DAC_READ_SEARCH
+ExecStart=/usr/bin/sing-box -D /var/lib/sing-box -C /etc/sing-box run
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+`sing-box 1.10.7` & `sing-box 1.11.8`版本：
 ```bash
 cat << EOF > /usr/lib/systemd/system/sing-box.service
 [Unit]
@@ -72,6 +101,31 @@ EOF
 ```
 
 ## 创建由sing-box用户运行的sing-box@.service
+`sing-box 1.12.x`版本:
+```bash
+cat << EOF > /usr/lib/systemd/system/sing-box@.service
+[Unit]
+Description=sing-box service
+Documentation=https://sing-box.sagernet.org
+After=network.target nss-lookup.target network-online.target
+
+[Service]
+User=sing-box
+Group=sing-box
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_PTRACE CAP_DAC_READ_SEARCH
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_PTRACE CAP_DAC_READ_SEARCH
+ExecStart=/usr/bin/sing-box -D /var/lib/sing-box-%i -c /etc/sing-box/%i.json run
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+`sing-box 1.10.7` & `sing-box 1.11.8`版本：
 ```bash
 cat << EOF > /usr/lib/systemd/system/sing-box@.service
 [Unit]
