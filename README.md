@@ -3,9 +3,12 @@
 * 一般普遍用法是sing-box服务端运行在各Linux发行版上，电脑、手机、平板等作为客户端
 * 配置样例服务端是sing-box实现的ShadowTLS v3协议，各平台sing-box作为客户端
 * 使用其他协议参考官方文档修改服务端的入站、客户端的出站
-* 具有基本的JSON语法基础
-* 配置样例是经过实际验证、可用的版本
+* 配置文件样例默认使用广告屏蔽规则集，不需要可自行删除
+* 修改配置需要有基本的JSON语法基础
 * sing-box官方文档地址：`https://sing-box.sagernet.org/zh/configuration`
+* 服务端和客户端配置文件默认文件名`config.json`，使用默认名需要把样例的文件名修改为`config.json`
+* 配置样例经过实际验证，并且可用
+* 配置样例并非完美，不足之处欢迎指正
 
 ## 目录解释
 
@@ -13,7 +16,6 @@
 * sing-box-RuleSet：指从sing-box 1.8.0版本后使用规则集方式进行国内外、私有地址分流，更加灵活
 * IPv4：服务端和客户端都使用IPv4方式进行配置，受Go的特性，监听IPv4地址也使用"::"形式，它等同于"0.0.0.0"，IPv4和IPv6服务端都是 ["listen": "::",] ，为了和官方一致不做修改
 * IPv6：服务端和客户端都使用IPv6方式进行配置，IPv6的服务端兼容IPv4客户端使用
-* 配置文件样例默认使用广告屏蔽规则集，不需要可自行删除
 
 ## 重要提示
 
@@ -26,7 +28,7 @@
 
 ## 兼容性提示
 
-* 调查后sing-box从某个版本起需要定位权限，国产系统限制了定位权限，AOSP没此问题。 【已解决：根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃】
+* 调查后sing-box从某个版本起需要定位权限，国产系统限制了定位权限，AOSP没此问题。 [已解决：根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃]
   
 ## 在Windows上使用sing-box
 
@@ -40,6 +42,7 @@
   start /min sing-box.exe run
   ```
 * 保存后你可以在任意地方双击*Run-sing-box.bat*运行sing-box
+
 * 另外，可以用"-c"参数指定其他配置文件，典型用法是一个配置对应一个服务端，假设名为*Run-sing-box-a.bat*或*Run-sing-box-b.bat* ...
  ```bat
   cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
@@ -49,7 +52,7 @@
   cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
   start /min sing-box.exe run -c config-b.json
   ```
-* 保存后你可以在任意地方双击*Run-sing-box-a.bat*或*Run-sing-box-b.bat*运行sing-box
+* 保存后在任意地方双击*Run-sing-box-a.bat*或*Run-sing-box-b.bat*运行sing-box
 
 ## 在Android上使用sing-box
 * 下载符合你架构、OS版本的sing-box
