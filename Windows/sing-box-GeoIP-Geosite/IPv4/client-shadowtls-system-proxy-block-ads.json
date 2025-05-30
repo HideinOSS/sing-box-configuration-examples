@@ -65,12 +65,12 @@
     ],
     "geosite": {
       "path": "geosite.db",
-      "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
+      "download_url": "https://github.com/MetaCubeX/meta-rules-dat/releases/latest/download/geosite.db",
       "download_detour": ""
     },
-    "geoip":  {
+    "geoip": {
       "path": "geoip.db",
-      "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
+      "download_url": "https://github.com/MetaCubeX/meta-rules-dat/releases/latest/download/geoip.db",
       "download_detour": ""
     },
     "auto_detect_interface": true,
