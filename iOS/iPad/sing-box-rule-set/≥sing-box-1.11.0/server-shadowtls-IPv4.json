@@ -1,0 +1,47 @@
+{
+  "ntp": {
+    "enabled": true,
+    "server": "pool.ntp.org",
+    "server_port": 123,
+    "interval": "180m"
+  },
+  "inbounds": [
+    {
+      "type": "shadowtls",
+      "tag": "shadowtls-in",
+      "listen": "::",
+      "listen_port": 443,
+      "detour": "shadowsocks-in",
+      "version": 3,
+      "users": [
+        {
+          "name": "//your shadowtls username",
+          "password": "//your shadowtls password"
+        }
+      ],
+      "handshake": {
+        "server": "sns-video-hw.xhscdn.com",
+        "server_port": 443
+      },
+      "strict_mode": true
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "shadowsocks-in",
+      "listen": "127.0.0.1",
+      "listen_port": 8080,
+      "method": "2022-blake3-aes-128-gcm",
+      "password": "//登录shell或在Windows命令行运行 sing-box generate rand --base64 16 生成",
+      "multiplex": {
+        "enabled": true,
+        "padding": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ]
+}
