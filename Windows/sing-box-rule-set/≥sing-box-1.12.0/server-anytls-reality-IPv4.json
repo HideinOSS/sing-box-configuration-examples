@@ -1,0 +1,65 @@
+{
+  "ntp": {
+    "enabled": true,
+    "server": "pool.ntp.org",
+    "server_port": 123,
+    "interval": "180m"
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "local",
+        "tag": "Local"
+      }
+    ],
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "anytls",
+      "listen": "::",
+      "listen_port": 443,
+      "users": [
+        {
+          "name": "//your anytls username",
+          "password": "//your anytls password"
+        }
+      ],
+      "padding_scheme": [
+        "stop=8",
+        "0=30-30",
+        "1=100-400",
+        "2=400-500,c,500-1000,c,500-1000,c,500-1000,c,500-1000",
+        "3=9-9,500-1000",
+        "4=500-1000",
+        "5=500-1000",
+        "6=500-1000",
+        "7=500-1000"
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "sns-img-hw.xhscdn.com",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "sns-img-hw.xhscdn.com",
+            "server_port": 443
+          },
+          "private_key": "//私钥，在shell或sing-box所在目录中cmd执行 sing-box generate reality-keypair 生成，取PrivateKey。注意一次生成一对，服务端和客户端需要成对对应",
+          "short_id": "0123456789abcdef",
+          "max_time_difference": "1m"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_resolver": {
+        "server": "Local",
+        "strategy": "ipv4_only"
+      }
+    }
+  ]
+}
