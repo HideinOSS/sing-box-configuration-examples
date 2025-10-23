@@ -4,7 +4,7 @@
 
 一般普遍用法是`sing-box`服务端运行在各Linux发行版上，电脑、手机、平板、路由器、安卓电视、安卓电视盒子等作为客户端
 
-配置样例服务端是`sing-box`实现的`ShadowTLS v3`协议，各平台`sing-box`作为客户端，后续添加`AnyTLS + Reality`协议，需要`sing-box ≥ 1.12.0`
+配置样例服务端是`sing-box`实现的`ShadowTLS v3`协议，各平台`sing-box`作为客户端，后续添加`AnyTLS + Reality`协议，需要`sing-box ≥ 1.12.0`，目前Windows平台已更新。
 
 `sing-box`作为服务端或是客户端取决于你的配置文件，它二进制文件不区分服务端客户端
 
@@ -35,8 +35,8 @@ sing-box-rule-set：指从sing-box 1.8.0版本后使用规则集方式进行国�
 
   ## 重要提示
 
-[__安全风险提示__] 使用非GREASE ECH加密套件来缓解uTLS中的Chrome指纹Bug：
-如果你的sing-box < 1.12.10 或 sing-box < 1.13.0-alpha.22，那么需要修改你全平台本地配置文件中 "fingerprint" 为使用非GREASE ECH加密方式的指纹，目前可用的是 "firefox"、"ios"。否则可能你会被检测到使用模拟 Chrome 指纹，这是一种安全风险，uTLS v1.8.1已经修复。详见：refraction-networking/utls#375
+[__安全风险提示__] 使用非`GREASE ECH`加密套件来缓解uTLS中的Chrome指纹Bug：
+如果你的`sing-box < 1.12.10` 或 `sing-box < 1.13.0-alpha.22`，那么需要修改你全平台本地配置文件中 "fingerprint" 为使用非GREASE ECH加密方式的指纹，目前可用的是 "firefox"、"ios"。否则可能你会被检测到使用模拟 Chrome 指纹，这是一种安全风险，uTLS v1.8.1已经修复。详见：refraction-networking/utls#375
 
 为了防止DNS解析泄露，Tun模式启用了防DNS泄漏的规则，防止国内第三者知道你访问了哪些网站。使用`https://ipleak.net` 、`https://browserleaks.com/dns` 来检测现有软件的DNS是否泄露
 
@@ -146,16 +146,16 @@ start /min sing-box.exe run -c config-a.json
 
 ## 在Armbian上使用sing-box
 
-* 目前`sing-box 1.10.7`经过验证
+* 目前`sing-box 1.10.7`经过验证，后续添加更新的正式版本
 
 
 
 ## 在ImmortalWrt上使用sing-box
 
-* 正在施工
+* 正在施工，目前是直接安装`sing-box ipk`及其依赖用命令运行
 
 
 
 ## 在安卓电视上使用sing-box
 
-* 正在施工
+* 使用方法同`在Android上使用sing-box`
