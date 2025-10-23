@@ -35,6 +35,9 @@ sing-box-rule-set：指从sing-box 1.8.0版本后使用规则集方式进行国�
 
   ## 重要提示
 
+[__安全风险提示__] 使用非GREASE ECH加密套件来缓解uTLS中的Chrome指纹Bug：
+如果你的sing-box < 1.12.10 或 sing-box < 1.13.0-alpha.22，那么需要修改你全平台本地配置文件中 "fingerprint" 为使用非GREASE ECH加密方式的指纹，目前可用的是 "firefox"、"ios"。否则可能你会被检测到使用模拟 Chrome 指纹，这是一种安全风险，uTLS v1.8.1已经修复。详见：refraction-networking/utls#375
+
 为了防止DNS解析泄露，Tun模式启用了防DNS泄漏的规则，防止国内第三者知道你访问了哪些网站。使用`https://ipleak.net` 、`https://browserleaks.com/dns` 来检测现有软件的DNS是否泄露
 
 如果你不完全理解官方文档，尽量不要自己配置DNS分流，配置不合理会造成DNS泄露
