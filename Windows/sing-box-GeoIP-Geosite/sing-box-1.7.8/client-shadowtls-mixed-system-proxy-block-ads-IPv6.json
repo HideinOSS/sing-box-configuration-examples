@@ -1,0 +1,79 @@
+{
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::1",
+      "listen_port": 10010,
+      "set_system_proxy": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "shadowsocks",
+      "detour": "shadowtls-out",
+      "method": "2022-blake3-aes-128-gcm",
+      "multiplex": {
+        "enabled": true,
+        "max_connections": 4,
+        "padding": true
+      }
+    },
+    {
+      "type": "shadowtls",
+      "tag": "shadowtls-out",
+      "server": "//your vps ip or domain",
+      "server_port": 443,
+      "version": 3,
+      "password": "//your shadowtls password",
+      "tls": {
+        "enabled": true,
+        "server_name": "sns-video-hw.xhscdn.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        }
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "geosite": "category-ads-all",
+        "outbound": "block"
+      },
+      {
+        "geosite": "cn",
+        "outbound": "direct"
+      },
+      {
+        "geoip": "cn",
+        "outbound": "direct"
+      },
+      {
+        "geoip": "private",
+        "outbound": "direct"
+      }
+    ],
+    "geosite": {
+      "path": "geosite.db",
+      "download_url": "https://github.com/MetaCubeX/meta-rules-dat/releases/latest/download/geosite.db",
+      "download_detour": ""
+    },
+    "geoip": {
+      "path": "geoip.db",
+      "download_url": "https://github.com/MetaCubeX/meta-rules-dat/releases/latest/download/geoip.db",
+      "download_detour": ""
+    },
+    "auto_detect_interface": true,
+    "final": ""
+  }
+}
