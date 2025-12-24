@@ -84,10 +84,10 @@
   ```json
   "address": [
      "172.17.0.1/30",
-      "fdfe:dcba:9876::1/126"
+     "fdfe:dcba:9876::1/126"
   ],
   ```
-  使用以下命令来查看日志是否得到解决
+  使用以下命令来查看日志是否出现错误
   ```bash
   journalctl -u NetworkManager -n 50 --no-pager
   ```
@@ -163,20 +163,21 @@
 
 
 ## 在Armbian上使用sing-box
-
-1. 使用`dpkg --print-architecture`来确认系统是哪种架构，方便你选择sing-box安装包
+1. 在Armbian SSH中用`dpkg --print-architecture`命令来确认系统是哪种架构，根据打印的后缀来选择sing-box安装包
 2. 目前`sing-box 1.10.7`、`sing-box 1.11.15`、`sing-box 1.12.x`经过验证，跟随sing-box项目添加更新的正式版本
 
 
 
 ## 在OpenWrt/ImmortalWrt上使用sing-box
 
-1. 推荐使用`nikkinikki-org/OpenWrt-momo`[项目地址](https://github.com/nikkinikki-org/OpenWrt-momo)，在线安装路由器需要有代理环境，不然安装包或依赖下载失败。根据说明用官方项目源或上传发布的ipk文件安装好后：
+以下方式选一：
+1. 推荐使用`nikkinikki-org/OpenWrt-momo`[项目地址](https://github.com/nikkinikki-org/OpenWrt-momo)，在线安装路由器需要有代理环境，不然安装包或依赖极有可能下载失败。根据说明用官方项目源或上传发布的ipk文件安装好后：
     ```
+      建议仔细阅读项目文档后进行配置。在仅核心模式下，OpenWrt-momo作为sing-box启动管理器，此时OpenWrt-momo中其他选项对sing-box无效，sing-box依靠你上传的config.json来创建路由器系统中tun网卡
       A. 在`配置文件`标签页按提示上传完整的`sing-box tun模式`配置，
       B. 在`插件配置`标签页中，`选择你上传的配置文件`——>勾选`启用` `检查配置文件` `仅核心` ——>保存并应用
       C. 不用配置`代理配置`页中的所有选项，你的配置在上传的配置文件中，包括节点、DNS规则、出入站等信息
-      D. OpenWrt-momo仅作为核心来使用，配置文件是已经上传的，它完成防火墙规则等工作，让LAN，WLAN接入的所有设备透明无感上网
+      D. OpenWrt-momo仅核心模式下，根据你上传的配置文件，它完成防火墙规则等工作，让LAN，WLAN接入的所有设备透明无感上网
     ```
 
 2. 直接安装`sing-box ipk`及其依赖用命令运行，并手动配置防火墙，适合有动手能力的用户选择。sing-box 1.10以后`auto_redirect`还会自动将兼容性规则插入 OpenWrt 的 fw4 表中，即无需额外配置即可在路由器上工作
