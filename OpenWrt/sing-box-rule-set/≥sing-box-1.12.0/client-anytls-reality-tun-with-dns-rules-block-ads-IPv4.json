@@ -37,6 +37,13 @@
     ],
     "rules": [
       {
+        "domain_suffix": [
+          "googleapis.cn"
+        ],
+        "action": "route",
+        "server": "Local"
+      },
+      {
         "rule_set": "geosite-geolocation-cn",
         "action": "route",
         "server": "AliDNS-DoT-v4"
