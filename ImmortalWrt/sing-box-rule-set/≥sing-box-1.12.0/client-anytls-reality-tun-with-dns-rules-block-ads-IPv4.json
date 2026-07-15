@@ -32,7 +32,7 @@
       },
       {
         "tag": "Local",
-        "type": "local"
+        "type": "dhcp"
       }
     ],
     "rules": [
