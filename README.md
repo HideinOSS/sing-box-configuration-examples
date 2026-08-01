@@ -60,19 +60,21 @@
           1.The recommended solution to limit the risk of IP leakage via WebRTC is to use the official Google extension called [WebRTC Network Limiter](https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia), which provides a range of options with varying levels of protection.
     ```
 
-* 配置文件使用了规则集方式进行国内外、私有地址分流。国外走代理，国内和私有IP直连，节省服务器流量并提高国内访问速度
+* 配置文件使用了规则集进行国内外和私有地址分流。国外走代理，国内和私有IP直连，节省服务器流量并提高国内访问速度
 
-* 因`SagerNet`官方项目的[geosite-cn.srs](https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-cn.srs)域名不全，Bypass后不在列表内的cn网站也走代理，有些政府事业网站屏蔽了海外IP导致无法访问。为了解决这一问题，`geosite-category-ads-all`、`geosite-cn`、`geoip-cn`全部替换成`MetaCubeX` [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat/tree/sing)库中的srs源
+* *因`SagerNet`官方项目的[geosite-cn.srs](https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-cn.srs)域名不全，Bypass后不在列表内的cn网站也走代理，有些政府事业网站屏蔽了海外IP导致无法访问。为了解决这一问题，`geosite-category-ads-all`、`geosite-cn`、`geoip-cn`全部替换成`MetaCubeX` [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat/tree/sing)库中的srs源*
+
+* [meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat/tree/sing)库中的srs源在2025年12月底后变更了版本，在sing-box上没有按照预期进行分流，恢复到sing-box官方的srs源
 
 * 配置文件部分字段为空表示使用内置默认值，方便你完全理解官方项目文档后按需修改
 
-* 在Windows上不要使用记事本编辑配置文件，Windows(CR LF)和Linux(LF)、MacOS(CR)文本换行符不一致，导致服务端读取配置时出现问题，使用专业文本工具编辑，如果发现配置文件在Git提交/拉取时自动转换成`CR LF`换行符，必要时需要手动改成`LF`换行符
+* Windows(CR LF)和Linux(LF)、MacOS(CR)文本换行符不一致，导致服务端读取配置时出现问题，使用专业文本工具编辑，如果发现配置文件在Git提交/拉取时自动转换成`CR LF`换行符，必要时需要手动改成`LF`换行符
 
 
 
 ## 兼容性提示
 
-* [`已解决：根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃`]。调查后sing-box从某个版本起需要定位权限，用以获取网络相关配置，国产系统限制了定位权限，AOSP没此问题
+* [`已解决：根据反馈，小米 MIUI 14.0.25 (Android 13)使用sing-box 1.9.3以上版本会出现异常，包括不限于APP卡死、崩溃`]。原因是sing-box从某个版本起需要定位权限，用以获取网络相关配置，如果国产系统默认限制了定位权限，需要自行打开，AOSP没此问题
 
 * 在Windows 10 LTSC Tun模式中，sing-box ≤ 1.10.0，如果出现DNS解析正常，出站异常无法连接/打开失败，`stack`需设置为：`"stack": "gvisor"`，同时可能IPv6支持不佳，如需使用IPv6更新sing-box到1.11.0以上
 
@@ -117,7 +119,7 @@
    cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
    start /min sing-box.exe run -c config-a.json
    ```
-    
+   
    ```bat
    cd /D "D:\Program Files\sing-box-x.x.x-windows-amd64"
    start /min sing-box.exe run -c config-b.json
@@ -171,9 +173,11 @@
 
 ## 在OpenWrt/ImmortalWrt上使用sing-box
 
+在路由器 SSH中用`opkg print-architecture`命令来确认系统/处理器是哪种架构，根据结果来选择sing-box安装包，a53/a55/a72/a76等
+
 以下方式选一：
-1. 在路由器 SSH中用`opkg print-architecture`命令来确认系统/处理器是哪种架构，根据结果来选择sing-box安装包，a53/a55/a72/a76等
-2. 推荐使用`nikkinikki-org/OpenWrt-momo`[项目地址](https://github.com/nikkinikki-org/OpenWrt-momo)，在线安装路由器需要有代理环境，不然安装包或依赖极有可能下载失败。根据说明用官方项目源或上传发布的ipk文件安装好后：
+
+1. 推荐使用`nikkinikki-org/OpenWrt-momo`[项目地址](https://github.com/nikkinikki-org/OpenWrt-momo)，在路由器上在线安装时需要有代理环境，不然安装包或依赖极有可能下载失败。根据说明用官方项目源或上传发布的ipk文件安装好后：
     ```
       建议仔细阅读项目文档后进行配置。在仅核心模式下，OpenWrt-momo作为sing-box启动管理器，此时OpenWrt-momo中其他选项对sing-box无效，sing-box依靠你上传的config.json来创建路由器系统中tun网卡
       A. 在`配置文件`标签页按提示上传完整的`sing-box tun模式`配置，
@@ -182,7 +186,7 @@
       D. OpenWrt-momo仅核心模式下，根据你上传的配置文件，它完成防火墙规则等工作，让LAN，WLAN接入的所有设备透明无感上网
     ```
 
-3. 直接安装`sing-box ipk`及其依赖用命令运行，并手动配置防火墙，适合有动手能力的用户选择。sing-box 1.10以后`auto_redirect`还会自动将兼容性规则插入 OpenWrt 的 fw4 表中，即无需额外配置即可在路由器上工作
+2. 直接安装`sing-box ipk`及其依赖用命令运行，并手动配置防火墙，适合有动手能力的用户选择。sing-box 1.10以后`auto_redirect`自动将兼容性规则插入 OpenWrt 的 fw4 表中，无需额外配置即可在路由器上工作
 
 
 
@@ -209,5 +213,4 @@
 4. 这种方法全平台的设备都可以使用，安卓手机/苹果手机/安卓电视/安卓盒子
 5. 如果其他设备无法访问，记得临时关闭防火墙或配置防火墙对应端口的入站规则允许外部访问
 6. 遥控器不方便输入字符/操作可使用USB鼠标键盘，或无线USB鼠标键盘套装，它们共用一个收发器只占用一个USB端口
-  
 
